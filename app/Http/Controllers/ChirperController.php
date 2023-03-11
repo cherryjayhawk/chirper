@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Chirper;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ChirperController extends Controller
 {
@@ -12,9 +13,9 @@ class ChirperController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): Response
     {
-        //
+        return response('Hello, World!');
     }
 
     /**
