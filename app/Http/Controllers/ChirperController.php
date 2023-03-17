@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Chirper;
+use App\Models\Chirp;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -35,18 +36,24 @@ class ChirperController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) : RedirectResponse
     {
-        //
+        $validated = $request->validate([
+            'message' => 'required|string|max:255',
+        ]);
+
+        $request->user()->chirps()->create($validated);
+
+        return redirect(route('chirps.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Chirper  $chirper
+     * @param  \App\Models\Chirp  $chirper
      * @return \Illuminate\Http\Response
      */
-    public function show(Chirper $chirper)
+    public function show(Chirp $chirper)
     {
         //
     }
@@ -57,7 +64,7 @@ class ChirperController extends Controller
      * @param  \App\Models\Chirper  $chirper
      * @return \Illuminate\Http\Response
      */
-    public function edit(Chirper $chirper)
+    public function edit(Chirp $chirper)
     {
         //
     }
@@ -66,10 +73,10 @@ class ChirperController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Chirper  $chirper
+     * @param  \App\Models\Chirp  $chirper
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Chirper $chirper)
+    public function update(Request $request, Chirp $chirper)
     {
         //
     }
@@ -80,7 +87,7 @@ class ChirperController extends Controller
      * @param  \App\Models\Chirper  $chirper
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Chirper $chirper)
+    public function destroy(Chirp $chirper)
     {
         //
     }
