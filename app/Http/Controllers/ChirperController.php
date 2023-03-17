@@ -66,21 +66,33 @@ class ChirperController extends Controller
      * @param  \App\Models\Chirper  $chirper
      * @return \Illuminate\Http\Response
      */
-    public function edit(Chirp $chirper)
+    public function edit(Chirp $chirp) : View
     {
-        //
+        $this->authorize('update', $chirp);
+
+        return view('chirps.edit', [
+            'chirp' => $chirp
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Chirp  $chirper
+     * @param  \App\Models\Chirp  $chirp
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Chirp $chirper)
+    public function update(Request $request, Chirp $chirp) : RedirectResponse
     {
-        //
+        $this->authorize('update', $chirp);
+
+        $validated = $request->validate([
+            'message' => 'required|string|max:255'
+        ]);
+
+        $chirp->update($validated);
+
+        return redirect(route('chirps.index'));
     }
 
     /**
