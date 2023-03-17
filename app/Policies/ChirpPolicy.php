@@ -63,9 +63,11 @@ class ChirpPolicy
      * @param  \App\Models\Chirp  $chirp
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Chirp $chirp)
+    public function delete(User $user, Chirp $chirp) : bool
     {
-        //
+        // dapat menggunakan update method, sehingga
+        // user yang dapat update dapat melakukan delete juga
+        return $this->update($user, $chirp);
     }
 
     /**
